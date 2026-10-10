@@ -5,38 +5,89 @@ Vagrant.configure("2") do |config|
   # "public" network so that we can access the panel interface
   config.vm.network "public_network"
 
-  # ubuntu
+  # Provision a symbolic link to the shared script
+  config.vm.provision "shell",
+    inline: "ln -sf /vagrant/lib/lib.sh /tmp/lib.sh"
+
+  # Define Ubuntu VMs
+  config.vm.define "ubuntu_resolute" do |ubuntu_resolute|
+    ubuntu_resolute.vm.box = "bento/ubuntu-26.04"
+    ubuntu_resolute.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+      vb.cpus = 2
+    end
+  end
+
+  config.vm.define "ubuntu_noble" do |ubuntu_noble|
+    ubuntu_noble.vm.box = "alvistack/ubuntu-24.04"
+    ubuntu_noble.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
+  end
+
   config.vm.define "ubuntu_jammy" do |ubuntu_jammy|
     ubuntu_jammy.vm.box = "ubuntu/jammy64"
+    ubuntu_jammy.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
   end
 
-  config.vm.define "ubuntu_focal" do |ubuntu_focal|
-    ubuntu_focal.vm.box = "ubuntu/focal64"
+  # Define Debian VMs
+  config.vm.define "debian_bookworm" do |debian_bookworm|
+    debian_bookworm.vm.box = "debian/bookworm64"
+    debian_bookworm.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
   end
 
-  config.vm.define "ubuntu_bionic" do |ubuntu_bionic|
-    ubuntu_bionic.vm.box = "ubuntu/bionic64"
+  config.vm.define "debian_trixie" do |debian_trixie|
+    debian_trixie.vm.box = "bento/debian-13"
+    debian_trixie.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
   end
 
-  # debian
-  config.vm.define "debian_bullseye" do |debian_bullseye|
-    debian_bullseye.vm.box = "debian/bullseye64"
+  # Define AlmaLinux VMs
+  config.vm.define "almalinux_8" do |almalinux_8|
+    almalinux_8.vm.box = "almalinux/8"
+    almalinux_8.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
   end
 
-  config.vm.define "debian_buster" do |debian_buster|
-    debian_buster.vm.box = "debian/buster64"
+  config.vm.define "almalinux_9" do |almalinux_9|
+    almalinux_9.vm.box = "almalinux/9"
+    almalinux_9.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
   end
 
-  config.vm.define "debian_stretch" do |debian_stretch|
-    debian_stretch.vm.box = "debian/stretch64"
+  config.vm.define "almalinux_10" do |almalinux_10|
+    almalinux_10.vm.box = "almalinux/10"
+    almalinux_10.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
   end
 
-  # (centos)
-  config.vm.define "centos_7" do |centos_7|
-    centos_7.vm.box = "centos/7"
+  # Define Rocky Linux VMs
+  config.vm.define "rockylinux_8" do |rockylinux_8|
+    rockylinux_8.vm.box = "bento/rockylinux-8"
+    rockylinux_8.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
   end
 
-  config.vm.define "centos_8" do |centos_8|
-    centos_8.vm.box = "centos/8"
+  config.vm.define "rockylinux_9" do |rockylinux_9|
+    rockylinux_9.vm.box = "bento/rockylinux-9"
+    rockylinux_9.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
+  end
+
+  config.vm.define "rockylinux_10" do |rockylinux_10|
+    rockylinux_10.vm.box = "bento/rockylinux-10"
+    rockylinux_10.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+    end
   end
 end
